@@ -5,9 +5,11 @@ function App() {
     <div>
       <Circle
         bgColor="red"
+        borderColor="yellow"
       />
       <Circle
         bgColor="green"
+        text="텍스트 텍스트"
       />
     </div>
   );
