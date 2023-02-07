@@ -19,7 +19,9 @@ interface ChartProps{
 }
 
 function Chart({coinId}: ChartProps) {
-    const{ isLoading, data } = useQuery<IHistorycal[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId));
+    const{ isLoading, data } = useQuery<IHistorycal[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId),{
+        refetchInterval: 10000,
+    });
     console.log("data", data);
 
     const closeData = data?.map(price => Number(price.close)) as number[];
