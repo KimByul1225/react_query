@@ -4,8 +4,8 @@ import { fetchCoinHistory } from '../api';
 import ApexChart from "react-apexcharts";
 
 interface IHistorycal {
-    time_open: string;
-    time_close: string,
+    time_open: string ;
+    time_close: any,
     open: number,
     high: number,
     low: number,
@@ -23,7 +23,7 @@ function Chart({coinId}: ChartProps) {
     console.log("data", data);
 
     const closeData = data?.map(price => Number(price.close)) as number[];
-    //const closeData = data?.map(price => Number(price.close)) as number[];
+    const categoryDateData = data?.map(price => new Date(price.time_close * 1000).toUTCString());
 
     console.log("closeData", closeData);
     return (
@@ -74,8 +74,25 @@ function Chart({coinId}: ChartProps) {
                             },
                             labels:{
                                 show: false,
+                                datetimeFormatter: {month: "mmm 'yy"}
+                            },
+                            type: "datetime",
+                            categories: categoryDateData,
+                        },
+                        fill:{
+                            type: "gradient",
+                            gradient:{
+                                gradientToColors: ["#0be881"],
+                                stops: [0, 100],
+                            },
+                        },
+                        colors: ["#0fbcf9"],
+                        tooltip:{
+                            y: {
+                                formatter: (value) => `$ ${value.toFixed(3)}` 
                             }
                         }
+
                     }}
                 />
             }
