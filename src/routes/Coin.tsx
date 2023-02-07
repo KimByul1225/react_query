@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
 
-import {Helmet} from "react-helmet";
+import { Helmet } from 'react-helmet-async';
 
 const Title = styled.h1`
     font-size: 48px;

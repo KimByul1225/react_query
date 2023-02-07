@@ -1,6 +1,7 @@
 import React from "react";
 import Router from "./routes/Router";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { HelmetProvider } from "react-helmet-async";
 
 import { createGlobalStyle } from "styled-components";
 
@@ -76,7 +77,9 @@ function App() {
     <>
     
       <GlobalStyle/>
-      <Router/>
+      <HelmetProvider>
+        <Router/>
+      </HelmetProvider>
       <ReactQueryDevtools initialIsOpen={true}/>
     </>
   );
