@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
 
+import {Helmet} from "react-helmet";
+
 const Title = styled.h1`
     font-size: 48px;
     color: ${(props) => props.theme.accentColor};
@@ -175,66 +177,71 @@ function Coin() {
 
     return (
         <Container>
-        <Header>
-            <Title>
-            {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
-            </Title>
-        </Header>
-        {loading ? (
-            <Loader>Loading...</Loader>
-        ) : (
-            <>
-                <Overview>
-                    <OverviewItem>
-                    <span>Rank:</span>
-                    <span>{infoData?.rank}</span>
-                    </OverviewItem>
-                    <OverviewItem>
-                    <span>Symbol:</span>
-                    <span>${infoData?.symbol}</span>
-                    </OverviewItem>
-                    <OverviewItem>
-                    <span>Price:</span>
-                    <span>{tickersData?.quotes.USD.price}</span>
-                    </OverviewItem>
-                </Overview>
-                <Description>{infoData?.description}</Description>
-                <Overview>
-                    <OverviewItem>
-                    <span>Total Suply:</span>
-                    <span>{tickersData?.total_supply}</span>
-                    </OverviewItem>
-                    <OverviewItem>
-                    <span>Max Supply:</span>
-                    <span>{tickersData?.max_supply}</span>
-                    </OverviewItem>
-                </Overview>
-                <Tabs>
-                    <Tab 
-                        isActive={chartMatch !== null}
-                    >
-                        <Link to={`/${coinId}/chart`}>Chart</Link>
-                    </Tab>
-                    <Tab 
-                        isActive={priceMatch !== null}
-                    >
-                        <Link to={`/${coinId}/price`}>Price</Link>
-                    </Tab>
-                </Tabs>
+            <Helmet>
+                <title>
+                    {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
+                </title>
+            </Helmet>
+            <Header>
+                <Title>
+                {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
+                </Title>
+            </Header>
+            {loading ? (
+                <Loader>Loading...</Loader>
+            ) : (
+                <>
+                    <Overview>
+                        <OverviewItem>
+                        <span>Rank:</span>
+                        <span>{infoData?.rank}</span>
+                        </OverviewItem>
+                        <OverviewItem>
+                        <span>Symbol:</span>
+                        <span>${infoData?.symbol}</span>
+                        </OverviewItem>
+                        <OverviewItem>
+                        <span>Price:</span>
+                        <span>{tickersData?.quotes.USD.price}</span>
+                        </OverviewItem>
+                    </Overview>
+                    <Description>{infoData?.description}</Description>
+                    <Overview>
+                        <OverviewItem>
+                        <span>Total Suply:</span>
+                        <span>{tickersData?.total_supply}</span>
+                        </OverviewItem>
+                        <OverviewItem>
+                        <span>Max Supply:</span>
+                        <span>{tickersData?.max_supply}</span>
+                        </OverviewItem>
+                    </Overview>
+                    <Tabs>
+                        <Tab 
+                            isActive={chartMatch !== null}
+                        >
+                            <Link to={`/${coinId}/chart`}>Chart</Link>
+                        </Tab>
+                        <Tab 
+                            isActive={priceMatch !== null}
+                        >
+                            <Link to={`/${coinId}/price`}>Price</Link>
+                        </Tab>
+                    </Tabs>
 
-                <Switch>
-                    <Route path={`/${coinId}/price`}>
-                        <Price />
-                    </Route>
-                    {/* 아래처럼 사용해도 무방 */}
-                    <Route path={`/:coinId/chart`}>
-                        <Chart 
-                            coinId={coinId}
-                        />
-                    </Route>
-                </Switch>
-            </>
-        )}
+                    <Switch>
+                        <Route path={`/${coinId}/price`}>
+                            <Price />
+                        </Route>
+                        {/* 아래처럼 사용해도 무방 */}
+                        <Route path={`/:coinId/chart`}>
+                            <Chart 
+                                coinId={coinId}
+                            />
+                        </Route>
+                    </Switch>
+                </>
+            )}
         </Container>
 
     );
