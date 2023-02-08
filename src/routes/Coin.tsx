@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import { Switch, Route, useLocation, useParams, useRouteMatch } from 'react-router';
+import { Switch, Route, useLocation, useParams, useRouteMatch, useHistory } from 'react-router';
 import Chart from "./Chart";
 import Price from "./Price";
 import { Link } from 'react-router-dom';
@@ -75,6 +75,25 @@ const Tab = styled.span<{ isActive: boolean }>`
         display: block;
     }
 `;
+const BtnWrap = styled.div`
+    padding-top: 20px;
+`
+
+const GoBackBtn = styled.button`
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    color: #fff;
+    background-color: transparent;
+    font-size: 28px;
+    border: 2px solid #fff;
+    cursor: pointer;
+    :hover{
+        color: #44bd32;
+        border: 2px solid #44bd32;
+        transition: all .2s ease;
+    }
+`
 
 
 
@@ -146,6 +165,7 @@ function Coin() {
     const {state} = useLocation<RouteState>();
     const priceMatch = useRouteMatch("/:coinId/price");
     const chartMatch = useRouteMatch("/:coinId/chart");
+    const history = useHistory();
     // console.log("priceMatch", priceMatch?.isExact);
     // console.log("chartMatch", chartMatch?.isExact);
 
@@ -155,6 +175,10 @@ function Coin() {
     const {isLoading: tickersLoading, data: tickersData} = useQuery<PriceData>(["tickers", coinId], () => fetchCoinTickers(coinId))
 
     const loading = infoLoading || tickersLoading;
+
+    const gobackBtnHandler = () =>{
+            history.push('/'); 
+    }
 
     // const [loading, setLoading] = useState(true);
     // const [info, setInfo] = useState<InfoData>({} as InfoData);
@@ -182,6 +206,13 @@ function Coin() {
                     {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
                 </title>
             </Helmet>
+            <BtnWrap>
+                <GoBackBtn
+                    onClick={gobackBtnHandler}
+                >
+                    ←
+                </GoBackBtn>
+            </BtnWrap>
             <Header>
                 <Title>
                 {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
