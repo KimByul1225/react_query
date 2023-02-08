@@ -2,6 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { fetchCoinHistory } from '../api';
 import ApexChart from "react-apexcharts";
+import styled from 'styled-components';
+
 
 interface IHistorycal {
     time_open: string ;
@@ -33,74 +35,94 @@ function Chart({coinId}: ChartProps) {
             {
                 isLoading? "Loading..." 
                 : 
-                <ApexChart 
-                    type="line"
-                    series={[
-                        {
-                            name: "price",
-                            data: closeData
-                        },
-                        // {
-                        //     name: "sales",
-                        //     data: [15,10,20,10,5]
-                        // }
-                    ]}
-                    options={{
-                        theme:{
-                            mode: "dark",
-                        },
-                        chart: {
-                            height:300,
-                            width:500,
-                            toolbar:{
-                                show: false
+                <>
+                    <ApexChart 
+                        type="line"
+                        series={[
+                            {
+                                name: "price",
+                                data: closeData
                             },
-                            background: "transparnt",
-                        },
-                        stroke: {
-                            curve: "smooth",
-                            width: 5,
-                        },
-                        grid:{
-                            show: false,
-                        },
-                        yaxis:{
-                            show: false,
-                        },
-                        xaxis:{
-                            axisTicks: {
+                            // {
+                            //     name: "sales",
+                            //     data: [15,10,20,10,5]
+                            // }
+                        ]}
+                        options={{
+                            theme:{
+                                mode: "dark",
+                            },
+                            chart: {
+                                height:300,
+                                width:500,
+                                toolbar:{
+                                    show: false
+                                },
+                                background: "transparnt",
+                            },
+                            stroke: {
+                                curve: "smooth",
+                                width: 5,
+                            },
+                            grid:{
                                 show: false,
                             },
-                            axisBorder:{
+                            yaxis:{
                                 show: false,
                             },
-                            labels:{
-                                show: false,
-                                datetimeFormatter: {month: "mmm 'yy"}
+                            xaxis:{
+                                axisTicks: {
+                                    show: false,
+                                },
+                                axisBorder:{
+                                    show: false,
+                                },
+                                labels:{
+                                    show: false,
+                                    datetimeFormatter: {month: "mmm 'yy"}
+                                },
+                                type: "datetime",
+                                categories: categoryDateData,
                             },
-                            type: "datetime",
-                            categories: categoryDateData,
-                        },
-                        fill:{
-                            type: "gradient",
-                            gradient:{
-                                gradientToColors: ["#0be881"],
-                                stops: [0, 100],
+                            fill:{
+                                type: "gradient",
+                                gradient:{
+                                    gradientToColors: ["#0be881"],
+                                    stops: [0, 100],
+                                },
                             },
-                        },
-                        colors: ["#0fbcf9"],
-                        tooltip:{
-                            y: {
-                                formatter: (value) => `$ ${value.toFixed(3)}` 
+                            colors: ["#0fbcf9"],
+                            tooltip:{
+                                y: {
+                                    formatter: (value) => `$ ${value.toFixed(3)}` 
+                                }
                             }
-                        }
 
-                    }}
-                />
+                        }}
+                    />
+                    <BoxWrap>
+                        <Box></Box>
+                        <Box></Box>
+                    </BoxWrap>
+                </>
             }
-            
         </div>
     );
 }
 
 export default Chart;
+
+const BoxWrap = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+`
+
+const Box = styled.div`
+    width: 48%;
+    height: 150px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    margin-bottom: 20px;
+`
