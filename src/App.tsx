@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Router from "./routes/Router";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { HelmetProvider } from "react-helmet-async";
@@ -75,9 +75,13 @@ const GlobalStyle = createGlobalStyle`
 
 
 function App() {
+  const [isDark, setIsDark] = useState(false);
+  const toggleDark = () => setIsDark((current) => !current)
+
   return (
     <>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <button onClick={toggleDark}>Toggle Mode</button>
         <GlobalStyle/>
           <HelmetProvider>
             <Router/>
