@@ -2,8 +2,10 @@ import React from "react";
 import Router from "./routes/Router";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { HelmetProvider } from "react-helmet-async";
+import { ThemeProvider } from "styled-components";
 
 import { createGlobalStyle } from "styled-components";
+import { darkTheme, lightTheme } from "./theme";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap');
@@ -75,12 +77,13 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <>
-    
-      <GlobalStyle/>
-      <HelmetProvider>
-        <Router/>
-      </HelmetProvider>
-      <ReactQueryDevtools initialIsOpen={true}/>
+      <ThemeProvider theme={darkTheme}>
+        <GlobalStyle/>
+          <HelmetProvider>
+            <Router/>
+          </HelmetProvider>
+        <ReactQueryDevtools initialIsOpen={true}/>
+      </ThemeProvider>
     </>
   );
 }
