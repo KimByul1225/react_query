@@ -67,7 +67,11 @@ interface CoinInterface {
     type: string
 }
 
-function Coins() {
+interface ICoinsProps {
+    toggleDark: () => void;
+}
+
+function Coins({ toggleDark }: ICoinsProps) {
     // const [coins, setCoins] = useState<CoinInterface[]>([]);
     // const [loading, setLoading] = useState(true);
 
@@ -96,6 +100,7 @@ function Coins() {
             </Helmet>
             <Header>
                 <Title>코인</Title>
+                <button onClick={toggleDark}>Toggle Dark Mode</button>
             </Header>
             {isLoading ? <Loader>Loading...</Loader> : <CoinList>
                 {data?.slice(0, 100).map((coin) => (
