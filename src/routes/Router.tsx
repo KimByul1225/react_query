@@ -4,21 +4,20 @@ import Coins from './Coins';
 import Coin from './Coin';
 
 interface IRouterProps {
-    toggleDark: () => void;
-    isDark: boolean;
+  
 }
 
-function Router({ toggleDark, isDark }: IRouterProps) {
+function Router({}: IRouterProps) {
     return (
         <BrowserRouter>
             {/* switch는 router v5에서만 사용 */}
             {/* router v6에서는 routes사용 */}
             <Switch>
                 <Route path="/:coinId">
-                    <Coin isDark={isDark} />
+                    <Coin />
                 </Route>
                 <Route path="/">
-                    <Coins toggleDark={toggleDark} />
+                    <Coins />
                 </Route>
                 
             </Switch>

@@ -18,11 +18,9 @@ interface IHistorycal {
 
 interface ChartProps{
     coinId: string;
-    isDark: boolean;
-
 }
 
-function Chart({ coinId, isDark }: ChartProps) {
+function Chart({ coinId }: ChartProps) {
     const{ isLoading, data } = useQuery<IHistorycal[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId),{
         refetchInterval: 10000,
     });
@@ -51,9 +49,9 @@ function Chart({ coinId, isDark }: ChartProps) {
                             // }
                         ]}
                         options={{
-                            theme:{
-                                mode: isDark ? "dark" : "light",
-                            },
+                            // theme:{
+                            //     mode: isDark ? "dark" : "light",
+                            // },
                             chart: {
                                 height:300,
                                 width:500,

@@ -6,6 +6,8 @@ import { ThemeProvider } from "styled-components";
 
 import { createGlobalStyle } from "styled-components";
 import { darkTheme, lightTheme } from "./theme";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "./routes/atoms";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap');
@@ -75,15 +77,14 @@ const GlobalStyle = createGlobalStyle`
 
 
 function App() {
-  const [isDark, setIsDark] = useState(false);
-  const toggleDark = () => setIsDark((current) => !current)
+  const isDark = useRecoilValue(isDarkAtom)
 
   return (
     <>
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <GlobalStyle/>
           <HelmetProvider>
-            <Router isDark={isDark} toggleDark={toggleDark} />
+            <Router />
           </HelmetProvider>
         <ReactQueryDevtools initialIsOpen={true}/>
       </ThemeProvider>
