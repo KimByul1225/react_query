@@ -83,14 +83,14 @@ const GoBackBtn = styled.button`
     width: 50px;
     height: 50px;
     border-radius: 25px;
-    color: #fff;
+    color: #717171;
     background-color: transparent;
     font-size: 28px;
-    border: 2px solid #fff;
+    border: 2px solid #717171;
     cursor: pointer;
     :hover{
-        color: #44bd32;
-        border: 2px solid #44bd32;
+        color: royalblue;
+        border: 2px solid royalblue;
         transition: all .2s ease;
     }
 `
